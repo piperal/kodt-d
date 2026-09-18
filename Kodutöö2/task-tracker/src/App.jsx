@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
-import TaskCard from '../components/TaskCard';
 import { getTasks } from '../services/taskApi';
+import Home from '../pages/Home';
+import Tasks from '../pages/Tasks';
+import TaskDetails from '../pages/TaskDetails';
+import "./Index.css"
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [completed, setCompleted] = useState(false)
 
   useEffect(() => {
     let cancelled = false;
@@ -24,7 +27,7 @@ function App() {
         }
       } catch (err) {
         if (!cancelled) {
-          setError('Failed to load tasks.');
+          setError(err);
         }
       } finally {
         if (!cancelled) {
@@ -40,27 +43,60 @@ function App() {
     };
   }, []);
 
+  function handleAddTask(title) {
+    const newTask = {
+      id: Date.now(),
+      title,
+      completed: false,
+    };
+
+    setTasks((currentTasks) => [...currentTasks, newTask]);
+  }
+
+  function handleToggleTask(id) {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task,
+      ),
+    );
+  }
+
+  function handleDeleteTask(id) {
+    setTasks((currentTasks) =>
+      currentTasks.filter((task) => task.id !== id),
+    );
+  }
+
   return (
     <>
       <Header />
-      <button onClick={() => { setCompleted(!completed) }}>Press Button:</button>
-      <p>Status: {completed ? "Completed" : "Not Completed"} </p>
 
-      <main>
-        {loading && <p>Loading tasks...</p>}
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-        {error && <p>{error}</p>}
+        <Route
+          path="/tasks"
+          element={
+            <Tasks
+              tasks={tasks}
+              loading={loading}
+              error={error}
+              onAddTask={handleAddTask}
+              onToggle={handleToggleTask}
+              onDelete={handleDeleteTask}
+            />
+          }
+        />
 
-        {!loading && !error && tasks.length === 0 && (
-          <p>No tasks found.</p>
-        )}
+        <Route
+          path="/tasks/:taskId"
+          element={<TaskDetails tasks={tasks} />}
+        />
 
-        {!loading &&
-          !error &&
-          tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
-          ))}
-      </main>
+
+      </Routes>
     </>
   );
 }
