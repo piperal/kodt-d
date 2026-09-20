@@ -53,18 +53,11 @@ function Tasks() {
 
     function handleToggleTask(id) {
         setTasks((currentTasks) =>
-            currentTasks.map((task) =>
-                task.id === id
-                    ? { ...task, completed: !task.completed }
-                    : task,
-            ),
-        );
+            currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task));
     }
 
     function handleDeleteTask(id) {
-        setTasks((currentTasks) =>
-            currentTasks.filter((task) => task.id !== id),
-        );
+        setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
     }
 
     const filteredTasks = tasks.filter((task) => {
@@ -100,6 +93,8 @@ function Tasks() {
             {!loading && !error && filteredTasks.map((task) => (
                 <TaskCard key={task.id} task={task} onToggle={handleToggleTask} onDelete={handleDeleteTask} />
             ))}
+
+            
         </main>
     );
 }

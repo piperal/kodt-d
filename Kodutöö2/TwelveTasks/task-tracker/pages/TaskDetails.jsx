@@ -5,6 +5,7 @@ function TaskDetails({ tasks }) {
     const { taskId } = useParams();
 
     const task = tasks.find((task) => task.id === Number(taskId));
+    console.log(tasks)
 
     if (!task) {
         return (
