@@ -9,13 +9,9 @@ function TaskCard({ task, onToggle, onDelete }) {
 
             <p>{task.completed ? 'Completed' : 'Not completed'}</p>
 
-            <button onClick={() => onToggle(task.id)}>
-                {task.completed ? 'Mark incomplete' : 'Mark completed'}
-            </button>
+            <button onClick={() => onToggle(task.id)}>{task.completed ? 'Mark incomplete' : 'Mark completed'} </button>
 
-            <button onClick={() => onDelete(task.id)}>
-                Delete
-            </button>
+            <button onClick={() => onDelete(task.id)}>Delete</button>
         </div>
     );
 }

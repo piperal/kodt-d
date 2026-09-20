@@ -20,9 +20,7 @@ function TaskDetails({ tasks }) {
         <main>
             <h1>{task.title}</h1>
 
-            <p>
-                Status: {task.completed ? 'Completed' : 'Not completed'}
-            </p>
+            <p> Status: {task.completed ? 'Completed' : 'Not completed'}</p>
 
             <Link to="/tasks">Back to tasks</Link>
         </main>
