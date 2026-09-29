@@ -24,3 +24,8 @@ cd ../node-frontend
 npm install
 
 npm start/npm run dev
+
+## Testimine
+cd ../node-server
+
+npx jest server.test.js
