@@ -21,6 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 
+//Siin 'normaliseeritakse' andmed, et nad olekis array kujul. See jälgib et kas tulevad andmed on arrays või ei ole
 const normalizeTasks = (data) => {
     if (Array.isArray(data)) {
         return data;
