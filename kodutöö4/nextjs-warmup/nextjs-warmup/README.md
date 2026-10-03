@@ -14,3 +14,5 @@
 
 ## Why must secrets remain on the server?
 <p>So that the user cant inspect the page and find any API keys and such</p>
+
+## This section is here to create someting for the pull request which was requested by the teacher
